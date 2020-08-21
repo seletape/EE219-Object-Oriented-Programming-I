@@ -1,0 +1,231 @@
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+
+
+using namespace std;
+
+
+int largest(int a, int b, int c, int d);
+
+void printSpacedString(char str[]);
+
+void minMax(const double arr[], const int size, double &minVal, double &maxVal);
+
+void swap(int &g, int &f);
+
+double range(double data[], int size);
+
+unsigned char getLowerByte(int num);
+
+unsigned short significantBits(unsigned int num);
+
+void checkers(int N);
+
+bool isOrdered(int a[], int size);
+
+
+int main() {
+    largest(2, 3, 4, 5);
+    printSpacedString("Hello World!");
+
+    double arr[] = {-4.3, 7.0, 10.4, 3.9, 1.2, 9.8, 11.3};
+    double min, max;
+    minMax(arr, sizeof(arr) / sizeof(arr[ 0 ]), min, max);
+    cout << "Q3: array min is " << min << " and max is " << max << endl;
+
+    double data[] = {-1.0, 6.3, -2.5, 10.7, 8.7};
+    int size = sizeof(data) / sizeof(data[ 0 ]);
+    cout << "Range is " << range(data, size) << endl;
+
+    cout << "Lower byte = " << (int) getLowerByte(0xFFFFF) << endl;
+
+    cout << "The number of bits are " << significantBits(1000) << endl;
+
+    int a[] = {20, 23, 23, 45, 78, 88};
+    isOrdered(a, sizeof(a) / sizeof(a[ 0 ]));
+    if (isOrdered(a, sizeof(a) / sizeof(a[ 0 ])))
+        cout << "Yes\n";
+    else
+        cout << "No\n";
+
+    checkers(8);
+    return 0;
+
+
+}
+
+
+//Q1 Complete
+void printSpacedString(char str[]) {
+    int len1 = strlen(str); //len1 is the string length
+    int i;
+    for (i = 0; i < len1; i++) {
+        cout << str[ i ] << " ";
+    }
+
+    cout << len1 << endl;
+
+
+}
+
+// Q2 Complete
+int largest(int a, int b, int c, int d) {
+
+//Logical Operators were used to get the largest number in each case of the variables
+    if (a > b && a > c && a > d) {
+        cout << "Variable a is largest which is " << a << endl;
+    }
+    if (b > a && b > c && b > d) {
+        cout << "Variable b is largest which is " << b << endl;
+    }
+    if (c > a && c > b && c > d) {
+        cout << "Variable c is largest which is " << c << endl;
+
+    }
+    if (d > a && d > b && d > c) {
+
+        cout << "Variable d is largest which is " << d << endl;
+    }
+
+    return 0;
+}
+
+//Q3 Completed
+void minMax(const double arr[], const int size, double &minVal, double &maxVal) {
+
+    maxVal = arr[ 0 ];
+    minVal = arr[ 0 ];
+// Gets the max value by going through the array and comparing the next value to the previous value and returns the maxVal
+    for (int i = 1; i < size; i++) {
+        if (arr[ i ] > maxVal) {
+            maxVal = arr[ i ];
+
+
+        }
+    }
+    // Gets the min value by going through the array and comparing the next value to the previous value and returns then minVal
+    for (int i = 1; i < size; i++) {
+        if (arr[ i ] < minVal) {
+            minVal = arr[ i ];
+
+
+        }
+    }
+
+
+}
+
+//Q4*
+void swap(int &g, int &f) {
+
+    if ((g && f == 0) || (g && f != 0)) {
+        int x = g;
+        g = f;
+        f = x;
+    }
+}
+
+//Q5*
+void swap(int *c, int *d) {
+
+    if ((c && d == 0) || ((c&&d!=0))) {
+        int y = *c;
+        *c = *d;
+        *d = y;
+
+
+    }
+}
+
+//Q6 Completed
+double range(double data[], int size) {
+
+    float x, y, range;
+
+//used from q3 to get max and min values x is max y is min subtracted from each other to get the range
+    for (int i = 1; i < size; i++) {
+        if (data[ i ] > x) {
+            x = data[ i ];
+        }
+    }
+
+    for (int i = 1; i < size; i++) {
+        if (data[ i ] < y) {
+            y = data[ i ];
+        }
+    }
+
+    range = x - y;
+    return range;
+}
+
+// Q7*
+unsigned char getLowerByte(int num) {
+//& bitwise function takes the 2 numbers and multiplies them together at every bit. the result of the multiplication  is only 1 if only both bits are 1
+    int lowbyte;
+    // lowbyte = 255
+    lowbyte = num & 0x00FF;
+
+
+    return lowbyte;
+}
+
+//Q8
+unsigned short significantBits(unsigned int num) {
+    int size = 1000;
+
+    int init = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (num > 0) {
+            num = num >> 1;
+            init++;
+        }
+    }
+    return init;
+}
+
+//Q9*
+
+bool isOrdered(int a[], int size) {
+// If the size of the array is 1 or 0 then it will return true as it is technically in order
+    if (size == 0 || size == 1)
+        return true;
+
+    // for every member of the array if the previous number is bigger than the initial number it returns a false
+    //This shows that the array is not in order
+    // but if it does not meet this condition then it can be deemed to be true.
+    for (int i = 1; i < size; i++)
+
+
+        if (a[ i - 1 ] > a[ i ])
+            return false;
+
+    return true;
+
+
+}
+
+
+//10*
+void checkers(int N) {
+
+
+// Creates the rows
+
+    for (int i = 0; i < N; i++) {
+
+        for (int k = 0; k < N; k++) {
+            if ((i + k) % 2 == 0)
+                std::cout << char(178) << char(178);
+            else
+                std::cout << " " << " ";
+        }
+//Places rows on new lines
+        std::cout << "\n";
+
+    }
+
+}
+

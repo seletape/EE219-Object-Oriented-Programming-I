@@ -1,0 +1,323 @@
+#include <iostream>
+#include <cmath>
+
+using std::string;
+using std::cout;
+using std::endl;
+//Q7
+//////////////////////////////////////////
+
+//Q9
+class Circle
+{
+private:
+    double xvalue;
+    double yvalue;
+    double radiusvalue;
+    double ar;
+
+public:
+
+    Circle(double x, double y, double radius) : xvalue(x), yvalue(y), radiusvalue(radius)
+    {
+        xvalue = x;
+        yvalue = y;
+        radiusvalue = radius;
+    }
+
+    double area (){
+        double ar;
+        ar= M_PI*(radiusvalue*radiusvalue);
+        return ar;
+
+    }
+
+    void display()
+    {
+        cout << "Centre is: " << xvalue << "," << yvalue <<endl;
+        cout << "Radius is: " << radiusvalue << endl;
+        cout << "Area is : " << ar << endl;
+    }
+
+    bool intersects(const Circle & c) {
+        // If the sum of the radii and the distance between the centres are equal, then the circles touch externally. If the difference between the radii and the distance between the centres are equal, then the circles touch internally.
+        double dista = sqrt(((xvalue-c.xvalue)+((yvalue-c.yvalue))*(xvalue-c.xvalue)+(yvalue-c.yvalue)));
+        int dist= radiusvalue+c.radiusvalue;
+        if (dista>dist)
+        {
+            return true;
+
+        }
+
+        else {
+            return false;
+        }
+
+    }
+};
+//Q7
+class Student {
+private:
+
+    string Fname;
+    string Sname;
+    int iD;
+
+
+public:
+
+    Student()
+
+    {
+        Fname = "";
+        Sname = "";
+        iD= 0;
+    }
+
+    Student(string Fn, string Sn, int id) : Fname(Fn), Sname(Sn), iD(id) {
+        Fname = Fn;
+        Sname = Sn;
+        iD = id;
+
+    } // constructor with parameters
+
+    void print() {
+        cout << "First name is " << Fname << "\nSurname is " << Sname << endl;
+        cout << "Student ID is " << iD << endl;
+
+
+    }
+};
+
+double average(double data[], int size);
+
+bool isPrime(unsigned int num);
+
+void twoDice();
+
+void simplifyFraction(int &n, int &d);
+
+std::string toBinaryString(int a);
+
+unsigned int myStrLen(const char *str);
+
+void printStudents(Student students[], int size);
+//Q7
+//////////////////////////////////////////
+
+
+
+
+int main() {
+
+    myStrLen ("Far");
+    double data[] = {1, 2, 3};
+    average (data, sizeof (data) / sizeof (data[0]));
+
+    std::cout << isPrime (8);
+
+    twoDice ();
+
+    int numer = 2340;
+    int denom = 832;
+    std::cout << numer << "\\" << denom << " = ";
+    simplifyFraction (numer, denom);
+    std::cout << numer << "\\" << denom << std::endl;
+
+    std::cout << " 34 in binary is : " << toBinaryString (34) << std::endl;
+    std::cout << "-10 in binary is : " << toBinaryString (- 10) << std::endl;
+
+    Student sa;
+    sa.print();
+//8
+    Student students[] = {
+            Student("Rainbow", "Dash", 1),
+            Student("Pinkie", "Pie", 2),
+            Student("Rar", "Ity", 3),
+            Student("Apple", "Jack", 4),
+            Student("Flutter", "Shy", 5),
+            Student("Twilight", "Sparkle", 6)
+    };
+    printStudents(students, sizeof(students)/sizeof(students[0]));
+/////////////////////////////////////////////////////////////////////////
+////////
+    Circle c1(0,0,1);
+    Circle c2(1,1,0.5);
+    c1.display();
+    c2.display();
+    cout << "Intersects? " << (c1.intersects(c2) ? " yes" : " no") << endl;
+}
+//Q1 Complete
+
+unsigned int myStrLen(const char *str) {
+
+//initialises length
+    int len = 0;
+
+// loop that stops when it reaches the end of a string
+    for (int i = 0; str[i] != '\0'; i ++) {
+        len ++;
+    }
+    //prints out the length of the string and returns the value
+    std::cout << len << endl;
+    return len;
+
+
+}
+
+
+///////////////////////////////////////////////////////////////
+
+
+
+
+//Q2 Complete
+double average(double data[], int size) {
+
+    // initialises values
+    double a, sum = 0;
+
+// loops to add all numbers to get the sum
+    for (int i = 0; i < size; i ++) {
+        sum += data[i];
+
+    }
+    // gets the average by dividing sum bl number of items in the array
+    a = sum / size;
+    std::cout << "Average is " << a << std::endl;
+    return 0;
+
+
+}
+//////////////////////////////////////////////////////////////////////////
+//Q3
+
+bool isPrime(unsigned int num) {
+// loop starts at 2 and  increments until num
+    for (int i=2;i<num;i++)
+    {
+        if(num%i==0){
+            // if number is divisible by i and has no remainder then it is not prime so returns false
+            std::cout<<num<< " is not a prime number"<< std::endl;
+    return false;
+
+        }
+        else
+            std::cout<<num<<" is  a prime number" << std::endl;
+    return true;
+    }
+return true;
+}
+
+
+//Q4
+/////////////////////////////////////////////////////////////////////////////////
+void twoDice() {
+
+    float sum = 0;
+// initialise sum
+//loops the for loop to produce the output
+
+    for (int i = 1; i < 7; i ++) {
+
+
+        for (int j = 1; j < 7; j ++) {
+
+
+            std::cout << "( " << i << "," << j << " ) ";
+
+            if (( i + j ) >= 6) {
+                sum ++;
+
+
+            }
+
+        }
+
+    }
+// Prints out probability by
+float prob=sum/36;
+    std::cout << "Probability is " << prob << std::endl;
+}
+
+
+//Q5
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+void simplifyFraction(int &n, int &d) {
+
+    int LV, HV;
+// Decides if numerator is the highest value/ denominator is the highest value
+    if (n > d) {
+
+        LV = d;
+
+        HV = n;
+
+    } else {
+
+        HV = d;
+
+        LV = n;
+
+    }
+// From Lowest value decremnets and divides the numerator and denom by i if the LV and HV are even.
+    for (int i = LV; i > 0; i --) {
+
+        if (( LV % i == 0 ) && ( HV % i == 0 )) {
+
+            ( n = n / i );
+
+            ( d = d / i );
+            break;
+
+        }
+
+    }
+
+}
+
+/////////////////////////////////////////////////////////////////
+//Q6
+string toBinaryString(int a) {
+
+// Initializes string
+    string b = "";
+    //Gets size of a in bytes then multiplies by 8 to get it in bits
+    int n = sizeof (a) * 8;
+    // decrements until 0
+    for (int i = n - 1; i >= 0; i --) {
+        //checks through every bit decrement
+        //shift bit vector 1 left i positions
+        //when a & 1(1<< i)are 1 then b=1 / else =0
+        if (a & ( 1 << i )) {
+            b += "1";
+        } else {
+            b += "0";
+        }
+    }
+    return b;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//Q8
+////////////////////////////////////////////////////////////////
+void printStudents(Student students[], int size) {
+    // for loop that uses class method print function to print array
+    for (int i=0;i<size;i++){
+        students[i].print();
+
+    }
+}
+
+////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,109 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+
+
+using namespace std;
+//Q1
+void printNumberedChars(string str, int i=0) {
+
+// if i == to the size of the string passed into it returns and prints
+    if(i==str.size()) return ;
+    cout<< str[i] <<"\t"<< endl;
+    printNumberedChars(str, i+1);
+
+}
+//Q2
+int sumArray(const int* arr, unsigned int size) {
+
+    if(size<=0)
+        return 0;
+    return (sumArray(arr,size-1)+ arr[size-1]);
+
+
+}
+
+//Q3
+long lowestPrimeFactor(long N, long i = 2) {
+    if (N<2)
+        return 1;
+
+    if (N % i == 0)
+
+        return i;
+
+    else if (i < sqrt(N))
+
+        return lowestPrimeFactor(N, i+1);
+
+    else
+        return N;
+}
+
+//Q4
+void printPrimeFactors(long N) {
+/*
+    if (lowestPrimeFactor(N) == 2) {
+        cout << N << endl;
+    } else {
+        long n=2;
+
+
+       cout<< n << " ";
+
+       printPrimeFactors(N/n);
+
+
+
+
+
+
+
+    }
+*/
+/*
+    long a[15];
+    a[0] = lowestPrimeFactor(N);    // first number in the array will be the lowestPrimeFactor
+    int i = 0;
+    if (a[i] <= 2) {
+        return;
+    } else {
+        N = N / a[i]; // N is divided by the lowest prime factor
+        a[i + 1] = lowestPrimeFactor(N);
+        i++;
+        printPrimeFactors(N / a[i]);
+    }
+    for (int b = i; b >= 0; b--) {
+        cout << a[b] << " ";
+    }
+
+
+*/
+    if(lowestPrimeFactor(N)!=1){
+        long n=N/lowestPrimeFactor(N);
+        printPrimeFactors(n);
+
+        cout<< lowestPrimeFactor(N) << " ";
+    }
+}
+
+
+
+
+
+
+int main() {
+    //q1
+    printNumberedChars("hello");
+     int arr[5]={1,2,3,4,5};
+     //q2
+    int size = sizeof(arr) / sizeof(arr[0]);
+    cout<< sumArray(arr,size)<<endl;
+
+    //q3
+    long N=57;
+  cout << "The lowest prime of "<< N << "is "<<   lowestPrimeFactor(N)<< endl;
+
+  //Q4
+    printPrimeFactors(1289531243);
+}

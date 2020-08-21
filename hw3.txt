@@ -1,0 +1,259 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+using std::string;
+using std::cout;
+using std::endl;
+
+//Q1
+
+string repeatString(const string & str, unsigned int n)
+{
+
+//Loop prints out and repeats string fro set amount of times
+    for(int i=0;i<n;i++){
+        cout << str;
+
+    }
+return str;
+}
+
+//Q2
+void printBigX(int N) {
+
+    for (int row = 0; row < N; row++) { // prints out rows of the x
+        for (int col = 0; col < N; col++) { // prints out the columns of x
+            if (row == col || col+row == (N-1) ) cout << "X";
+            else cout << " ";
+
+        }
+        cout<< endl;
+    }
+
+}
+  ////////////////////////////////////////////////////
+//q3 complete
+
+class Book{
+private:
+    string author;
+     string title;
+    string year;
+
+public:
+// constructors created
+
+    Book(): author(" "), title(" "),year(" "){}
+    Book(string auth, string tit, string yr) :author(auth), title(tit), year(yr){}
+   string getAuthor() { string A = author;return A;}
+  string  getTitle(){ string B = title; return B;}// methods that return the author, title and year values
+   string  getYear(){string C = year; return C;}
+
+};
+
+//////////////////////////////////////////////////////////////////////////
+//q4
+
+int countBooksByAuthor(Book bookList[], int size, string author) {
+int nobooks=0; // initiliase the values of books
+    for (int i = 0; i < size; i++) {// uses the function to get the author then use the find unction to find the corresponding author and match the cases
+        if (bookList[i].getAuthor().find(author) != string::npos)
+            nobooks++;// counts the no. of books associated with the author
+    }
+    return nobooks;
+}
+
+//Q5
+// class is created and implemented
+class Complex {
+private:
+    double real;
+    double imag;
+
+public:
+
+    Complex(double r, double i) : real(r), imag(i) {}
+//print function to show the real and imaginary parts by using the showpos and noshowpos. they show the positove and negative of a function
+    void print() {
+        cout << noshowpos << real<<showpos<<" " <<imag << noshowpos << "i" << endl;
+
+
+
+
+    }
+    //////////////////////////////////////////////////
+//Q6
+    Complex conj() {
+        // gets the conjugate of a function
+        Complex i = Complex(0,0);
+        i.imag =imag*(-1);
+
+        i.real = real;
+        return i;
+
+    }
+    // multiplies the complex number by another complex number
+    Complex multiplyBy(const Complex & z) {
+        Complex s = z;
+
+        s.real =(real*z.real) - (imag* z.imag);
+        s.imag = (real*z.imag) + (z.real*imag);
+        return s;
+
+
+    }
+/////////////////////////////////////////////////////////////////
+//Q7
+
+};
+
+    class Point {
+    private:
+// private members
+        double x;
+// private members
+        double y;
+    public:
+// class constr, using the initialization list
+        Point(): x(0), y(0) {}
+        Point(double _x, double _y) : x(_x), y(_y) {}
+
+
+
+// distance between this point object and another point object p
+// can access the private member data of another object of the same class
+        double distanceTo(Point p) {
+
+            return sqrt((x-p.x)*(x-p.x) + (y-p.y)*(y-p.y));
+
+        }
+
+    };
+
+///////////////////////////////////////////////////////////////////////
+//Q8
+    class Polygon{
+    private:
+// private points
+        Point polygon[10];
+        int npts;
+
+
+
+    public:
+        // class constr, intialise the npts variable
+        Polygon(): npts(0) {}
+
+
+        bool add(Point p) {
+//function that adds points up to 10 points can be added which is set in the array
+            if (npts > 9) { return false; }
+            else {
+                polygon[npts] =  p;
+                npts++;
+
+            }
+            return true;
+
+        }
+
+        double length() {
+            //gets the length of one side of the polygon and repeats for the duration pf the loop
+            double len = polygon[1].distanceTo(polygon[0]);
+            for (int i=2; 10>i;i++) {
+// adds the  previous len value to the next distance of the next line to get the total perimeter of the polygon
+                len= len + polygon[i].distanceTo((polygon[i - 1]));
+
+            }
+            return  len;
+        }
+
+    };
+
+//Q9
+/////////////////////////////////////////////////////////////////////////////////////////////////
+class CyclicString{
+private:
+    string str;
+    int count;
+
+
+
+public:
+    CyclicString(string s) : str(s),count(0)  {}
+
+
+    char next() {
+
+
+        // converts the string to a char 
+        char ch;
+        int l = str.length();
+        // if length of string is less than or = to the count then count is set to 0
+        if(l<=count){
+            count=0;
+        }
+        //The function automatically checks whether pos is the valid position of a character in the string
+        
+        ch = str.at(count);
+            count++;
+
+
+        return ch;
+    }
+
+
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+    int main() {
+        cout << repeatString("echo! ", 8) << endl;
+
+
+        printBigX(19);
+
+        Book books[] = {
+                Book("B. Stroustrup", "A Tour of C++", "2018"),
+                Book("J. Bloch", "Effective Java", "2018"),
+                Book("B. Stroustrup", "The C++ Programming Language(Fourth Edition)", "2013"),
+                Book("B. McLaughlin, G. Pollice, D. West", "Head First Object Oriented Analysis and Design", "2006"),
+                Book("B. McLaughlin", "Java and XML", "2006") };
+        string searchAuthor = "McLaughlin";
+        cout << "There are " << countBooksByAuthor(books, 5, searchAuthor) << " books by author " << searchAuthor << endl;
+
+        Complex c1(2.7, -5.2);
+        c1.print();   // prints “2.7 – 5.2i”
+        Complex c2 = c1.conj();
+        c2.print();   // prints “2.7 + 5.2i”
+        Complex c3 = c1.multiplyBy(c2);
+        c3.print();   // prints “34.33 + 0i”
+
+        Point p1(1.0,1.0);
+        Point p2(2.0,2.0);
+        cout << "Distance between points is " << p1.distanceTo(p2) << endl;
+
+    Polygon poly;
+    poly.add(Point(0,0));
+    poly.add(Point(1,0));
+    poly.add(Point(1,1));
+    poly.add(Point(0,1));
+    cout << poly.length() << endl;  // should return length of 4
+
+        //q9
+        CyclicString s("Repeat Me!");
+        for (int i=0; i<51; i++)
+            cout << s.next();
+
+    }
+
+
